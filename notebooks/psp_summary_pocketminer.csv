@@ -1,0 +1,26 @@
+Method,sampler,stat,TM-score\n (all predictions),Backbone RMSD\n (all predictions),TM-score\n (per-target top-1),Backbone RMSD\n (per-target top-1),Ligand RMSD\n (all predictions),Ligand RMSD\n (per-target top-1)
+AlphaFold2,-,mean,0.891,2.049,0.911,1.881,-,-
+AlphaFold2,-,std,0.111,1.007,0.099,1.057,-,-
+AlphaFold2,-,25%,0.852,1.368,0.865,1.103,-,-
+AlphaFold2,-,50%,0.930,1.910,0.951,1.615,-,-
+AlphaFold2,-,75%,0.969,2.592,0.975,2.322,-,-
+NeuralPLexer \n (no ligand),DDIM,mean,0.844,2.695,0.908,1.995,-,-
+NeuralPLexer \n (no ligand),DDIM,std,0.112,0.924,0.092,0.878,-,-
+NeuralPLexer \n (no ligand),DDIM,25%,0.802,2.010,0.898,1.390,-,-
+NeuralPLexer \n (no ligand),DDIM,50%,0.877,2.570,0.942,1.755,-,-
+NeuralPLexer \n (no ligand),DDIM,75%,0.920,3.270,0.961,2.370,-,-
+NeuralPLexer \n (no ligand),LSA-SDE,mean,0.877,2.261,0.916,1.847,-,-
+NeuralPLexer \n (no ligand),LSA-SDE,std,0.110,1.018,0.093,1.005,-,-
+NeuralPLexer \n (no ligand),LSA-SDE,25%,0.833,1.580,0.891,1.218,-,-
+NeuralPLexer \n (no ligand),LSA-SDE,50%,0.916,2.070,0.949,1.585,-,-
+NeuralPLexer \n (no ligand),LSA-SDE,75%,0.950,2.790,0.971,2.173,-,-
+NeuralPLexer \n (ours),DDIM,mean,0.867,2.418,0.921,1.818,14.220544293,13.790470306122451
+NeuralPLexer \n (ours),DDIM,std,0.110,0.908,0.089,0.948,13.011699656043717,12.499727269451398
+NeuralPLexer \n (ours),DDIM,25%,0.839,1.730,0.918,1.162,3.5674975,3.1560825
+NeuralPLexer \n (ours),DDIM,50%,0.903,2.280,0.953,1.555,7.410489999999999,7.877845000000001
+NeuralPLexer \n (ours),DDIM,75%,0.941,2.940,0.971,2.218,23.546525000000003,24.2744
+NeuralPLexer \n (ours),LSA-SDE,mean,0.893,2.026,0.926,1.676,14.029216920705782,12.714914479591837
+NeuralPLexer \n (ours),LSA-SDE,std,0.110,0.982,0.091,0.961,12.940401569829662,12.22982891260178
+NeuralPLexer \n (ours),LSA-SDE,25%,0.866,1.360,0.916,1.055,3.352525,3.2930875
+NeuralPLexer \n (ours),LSA-SDE,50%,0.929,1.870,0.958,1.425,8.14625,5.907285
+NeuralPLexer \n (ours),LSA-SDE,75%,0.965,2.570,0.978,2.118,22.96465,21.602674999999998

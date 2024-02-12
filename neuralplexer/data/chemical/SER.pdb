@@ -1,0 +1,8 @@
+REMARK   1  AUTH 4 MARYAM FAZEL-ZARANDI, TOM SERCU, SALVATORE CANDIDO,
+REMARK   1 COPYRIGHT (C) META PLATFORMS, INC. ALL RIGHTS RESERVED.
+ATOM    122  N   SER A  16      -4.944  -3.465  -8.076  1.00  0.68           N  
+ATOM    123  CA  SER A  16      -4.431  -4.782  -8.440  1.00  0.68           C  
+ATOM    124  C   SER A  16      -4.671  -5.080  -9.916  1.00  0.68           C  
+ATOM    125  CB  SER A  16      -5.080  -5.867  -7.580  1.00  0.65           C  
+ATOM    126  O   SER A  16      -4.031  -5.964 -10.488  1.00  0.69           O  
+ATOM    127  OG  SER A  16      -6.471  -5.951  -7.841  1.00  0.62           O  

@@ -1,0 +1,11 @@
+-parser:protocol dock_protocol.xml
+-in:auto_setup_metals
+-nstruct 32
+-s 'protein_LIG.pdb'
+-extra_res_fa LIG.params
+-ignore_ligand_chi false
+-overwrite
+-flip_HNQ true
+-no_optH false
+-ex1
+-ex2

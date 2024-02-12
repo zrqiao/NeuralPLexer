@@ -1,0 +1,26 @@
+Method,sampler,stat,TM-score,Backbone RMSD,TM-score (top-1),Backbone RMSD (top-1),Ligand RMSD,Ligand RMSD (top-1)
+AlphaFold2,,mean,0.891,2.049,0.911,1.881,-,-
+AlphaFold2,,std,0.111,1.007,0.099,1.057,-,-
+AlphaFold2,,25%,0.852,1.368,0.865,1.103,-,-
+AlphaFold2,,50%,0.930,1.910,0.951,1.615,-,-
+AlphaFold2,,75%,0.969,2.592,0.975,2.322,-,-
+NeuralPLexer (no ligand),DDIM,mean,0.941,1.660,0.972,1.193,-,-
+NeuralPLexer (no ligand),DDIM,std,0.053,0.414,0.016,0.432,-,-
+NeuralPLexer (no ligand),DDIM,25%,0.944,1.358,0.968,0.870,-,-
+NeuralPLexer (no ligand),DDIM,50%,0.961,1.705,0.976,1.140,-,-
+NeuralPLexer (no ligand),DDIM,75%,0.969,1.930,0.980,1.462,-,-
+NeuralPLexer (no ligand),LSA-SDE,mean,0.925,1.623,0.946,1.305,-,-
+NeuralPLexer (no ligand),LSA-SDE,std,0.091,0.784,0.087,0.647,-,-
+NeuralPLexer (no ligand),LSA-SDE,25%,0.910,0.970,0.952,0.788,-,-
+NeuralPLexer (no ligand),LSA-SDE,50%,0.958,1.470,0.970,1.195,-,-
+NeuralPLexer (no ligand),LSA-SDE,75%,0.973,2.172,0.982,1.625,-,-
+NeuralPLexer,DDIM,mean,0.902,1.924,0.938,1.411,7.268879802845528,7.8013521739130445
+NeuralPLexer,DDIM,std,0.097,0.685,0.093,0.574,7.010916760156085,8.131962608671783
+NeuralPLexer,DDIM,25%,0.891,1.397,0.940,1.025,3.7441575,4.011045
+NeuralPLexer,DDIM,50%,0.930,1.840,0.966,1.270,5.39809,5.38983
+NeuralPLexer,DDIM,75%,0.957,2.360,0.979,1.690,8.3138825,8.846415
+NeuralPLexer,LSA-SDE,mean,0.934,1.486,0.950,1.236,8.985099255050509,9.811609424242427
+NeuralPLexer,LSA-SDE,std,0.091,0.750,0.087,0.656,9.942938767945549,10.753380498622615
+NeuralPLexer,LSA-SDE,25%,0.938,0.900,0.955,0.720,2.673615,2.58336
+NeuralPLexer,LSA-SDE,50%,0.966,1.290,0.975,1.095,5.01026,5.24557
+NeuralPLexer,LSA-SDE,75%,0.978,1.870,0.987,1.613,9.3880325,10.5442

@@ -1,0 +1,41 @@
+name: neuralplexer_dev
+channels:
+  - nvidia
+  - pytorch
+  - pytorch3d
+  - pyg
+  - bioconda
+  - conda-forge
+dependencies:
+  - python >=3.8
+  - pip
+  - pytorch >=1.10.0
+  - pytorch-cuda
+  - biopython
+  - prody
+  - deprecated
+  - hydra-core=1.1.1
+  - dm-tree
+  - ml-collections
+  - networkx
+  - pypdb
+  - pytest
+  - dataclasses
+  - msgpack-python
+  - msgpack-numpy
+  - numpy
+  - openbabel
+  - pandas
+  - pytorch3d
+  - rdkit
+  - rmsd
+  - tmalign
+  - tensorboard
+  - jupyter
+  - tqdm
+  - python-lmdb
+  - vim
+  - wandb
+  - pip:
+    - -r requirements.txt
+

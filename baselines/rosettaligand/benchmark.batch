@@ -1,0 +1,16 @@
+#!/bin/bash
+#SBATCH --job-name=rosettaligand
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=4000
+#SBATCH -t 12:00:00
+
+cd ${1}
+cp ../options.short ./
+cp ../dock_protocol.xml ./
+export ROSETTA=/shared/tools/Rosetta
+/groups/tfm/zqiao/tools/BCL/build/linux64_release/bin/bcl-apps-static.exe molecule:ConformerGenerator -rotamer_library cod -top_models 64 -ensemble_filenames ligand.sdf -conformers_single_file ligand.conf.sdf -conformation_comparer 'Dihedral(method=Max)' 30 -max_iterations 1000
+/home/zqiao/miniconda3/envs/nvidia/bin/python $ROSETTA/main/source/scripts/python/public/molfile_to_params.py -n LIG -p LIG --chain=X --conformers-in-one-file --keep-names ligand.conf.sdf
+cat protein.pdb LIG.pdb > protein_LIG.pdb
+$ROSETTA/main/source/bin/rosetta_scripts.default.linuxgccrelease  -database $ROSETTA/main/database @options.short

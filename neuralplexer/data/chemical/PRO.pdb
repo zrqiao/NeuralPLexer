@@ -1,0 +1,8 @@
+REMARK   1  TITL   EVOLUTIONARY-SCALE PREDICTION OF ATOMIC LEVEL PROTEIN
+ATOM    115  N   PRO A  15      -4.409   0.029  -7.509  1.00  0.69           N  
+ATOM    116  CA  PRO A  15      -5.414  -0.890  -8.049  1.00  0.67           C  
+ATOM    117  C   PRO A  15      -4.804  -2.179  -8.593  1.00  0.69           C  
+ATOM    118  CB  PRO A  15      -6.067  -0.079  -9.171  1.00  0.66           C  
+ATOM    119  O   PRO A  15      -3.776  -2.141  -9.274  1.00  0.66           O  
+ATOM    120  CG  PRO A  15      -5.389   1.253  -9.124  1.00  0.64           C  
+ATOM    121  CD  PRO A  15      -4.211   1.156  -8.197  1.00  0.63           C  

@@ -1,0 +1,21 @@
+#!/bin/bash
+#SBATCH --job-name=summary
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=4000
+#SBATCH -t 2:00:00
+export CONDA=/home/zqiao/miniconda3/envs/nvidia/bin
+export PROJECT=/groups/tfm/zqiao/GPLC
+cd ${1}
+echo -n > lig_rmsd.summary
+echo -n > rec_lddtbs.summary
+for i in {0001..0032}
+do
+    echo ${i}
+    $CONDA/pdb_delhetatm protein_LIG_${i}.pdb | pdb_keepcoord > protein_${i}.pdb
+    $CONDA/pdb_selchain -X protein_LIG_${i}.pdb | pdb_keepcoord > LIG_${i}.pdb
+    $CONDA/obabel -ipdb LIG_${i}.pdb -osdf -O LIG_${i}.sdf -d
+    $CONDA/obrms -f LIG_${i}.sdf ligand.sdf  | awk '{print $3}' >> lig_rmsd.summary
+    $CONDA/python $PROJECT/neuralplexer/util/pdb3d.py protein_${i}.pdb ref_protein.pdb ligand.sdf >> rec_lddtbs.summary
+done
