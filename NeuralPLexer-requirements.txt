@@ -1,0 +1,7 @@
+pytorch-lightning <2.0.0
+fairscale
+mendeleev
+DLLogger @ git+https://github.com/NVIDIA/dllogger.git@0540a43971f4a8a16693a9de9de73c1072020769
+power-spherical @ git+https://git@github.com/zrqiao/power_spherical.git@290b1630c5f84e3bb0d61711046edcf6e47200d4
+fair-esm @ git+https://github.com/facebookresearch/esm@57da016e5d740a9ac5bcf62c3689a42e88584bc
+seaborn
