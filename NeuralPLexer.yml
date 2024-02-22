@@ -1,0 +1,33 @@
+name: NeuralPLexer
+channels:
+  - nvidia
+  - pyg
+  - bioconda
+  - conda-forge
+dependencies:
+  - biopython
+  - prody
+  - deprecated
+  - hydra-core=1.1.1
+  - dm-tree
+  - ml-collections
+  - networkx
+  - pypdb
+  - pytest
+  - dataclasses
+  - msgpack-python
+  - msgpack-numpy
+  - numpy
+  - openbabel
+  - pandas
+  - rdkit
+  - rmsd
+  - tmalign
+  - tensorboard
+  - jupyter
+  - tqdm
+  - python-lmdb
+  - vim
+  - wandb
+  - pip:
+    - -r NeuralPLexer-requirements.txt
