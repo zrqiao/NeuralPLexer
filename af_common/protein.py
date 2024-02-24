@@ -345,7 +345,7 @@ def to_pdb(prot: Protein, model=1) -> str:
             )
         chain_ids[i] = PDB_CHAIN_IDS[i]
 
-    # pdb_lines.append(f"MODEL     {model}")
+    pdb_lines.append(f"MODEL     {model}")
     atom_index = 1
     last_chain_index = chain_index[0]
     # Add all atom sites.
