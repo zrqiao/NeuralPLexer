@@ -624,7 +624,11 @@ def main():
     if args.task == "single_sample_trajectory":
         single_sample_sampling(args, model)
     elif args.task == "batched_structure_sampling":
-        ligand_paths = list(args.input_ligand.split("|"))
+        # Handle no ligand input
+        if args.input_ligand is not None:
+            ligand_paths = list(args.input_ligand.split("|"))
+        else:
+            ligand_paths = None
         if not args.input_receptor.endswith(".pdb"):
             warnings.warn("Assuming the provided receptor input is a protein sequence")
             create_full_pdb_with_zero_coordinates(
