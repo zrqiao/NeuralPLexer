@@ -870,7 +870,7 @@ def inplace_to_device(sample, device):
     sample["features"] = {k: v.to(device) for k, v in sample["features"].items()}
     sample["indexer"] = {k: v.to(device) for k, v in sample["indexer"].items()}
     if "labels" in sample.keys():
-        sample["labels"] = sample["labels"].cuda()
+        sample["labels"] = sample["labels"].to(device)
     return sample
 
 
