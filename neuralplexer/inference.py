@@ -19,7 +19,7 @@ from af_common.residue_constants import restype_1to3
 from neuralplexer.data.indexers import collate_numpy
 from neuralplexer.data.physical import calc_heavy_atom_LJ_clash_fraction
 from neuralplexer.data.pipeline import (featurize_protein_and_ligands,
-                                        inplace_to_device, inplace_to_torch,
+                                        inplace_to_cuda, inplace_to_torch,
                                         process_mol_file, write_conformer_sdf,
                                         write_pdb_models, write_pdb_single)
 from neuralplexer.model.config import (_attach_binding_task_config,
@@ -105,8 +105,8 @@ def single_sample_sampling(args, model):
         template_path=args.input_template,
     )
     sample = inplace_to_torch(collate_numpy([sample]))
-    if args.cuda_device_index is not None:
-        sample = inplace_to_device(sample, device=torch.device(f"cuda:{args.cuda_device_index}"))
+    if args.cuda:
+        sample = inplace_to_cuda(sample)
 
     all_frames = model.sample_pl_complex_structures(
         sample,
@@ -177,8 +177,8 @@ def multi_pose_sampling(
         )
         np_sample_batched = collate_numpy([np_sample for _ in range(chunk_size)])
         sample = inplace_to_torch(np_sample_batched)
-        if args.cuda_device_index is not None:
-            sample = inplace_to_device(sample, device=torch.device(f"cuda:{args.cuda_device_index}"))
+        if args.cuda:
+            sample = inplace_to_cuda(sample)
         output_struct = model.sample_pl_complex_structures(
             sample,
             sampler=args.sampler,
@@ -588,7 +588,7 @@ def main():
     parser.add_argument("--task", required=True, type=str)
     parser.add_argument("--sample-id", default=0, type=int)
     parser.add_argument("--template-id", default=0, type=int)
-    parser.add_argument("--cuda-device-index", default=None, type=int)
+    parser.add_argument("--cuda", action="store_true")
     parser.add_argument("--model-checkpoint", type=str)
     parser.add_argument("--input-ligand", type=str)
     parser.add_argument("--input-receptor", type=str)
@@ -632,9 +632,9 @@ def main():
         config=config, checkpoint_path=args.model_checkpoint, strict=False
     )
     model.eval()
-    if args.cuda_device_index is not None:
+    if args.cuda:
         torch.set_default_tensor_type(torch.cuda.FloatTensor)
-        model = model.to(torch.device(f"cuda:{args.cuda_device_index}"))
+        model.cuda()
 
     if args.start_time != "auto":
         args.start_time = float(args.start_time)
