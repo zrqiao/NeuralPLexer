@@ -58,6 +58,8 @@ and/or with receptors of single or multiple protein chains. Common input options
 - :code:`n-samples` is the number of conformations to generate in total;
 - :code:`chunk-size` is the number of conformation to generate in parallel;
 - :code:`num-steps` is the number of steps for the diffusion part of the sampling process;
+- :code:`separate-pdb` determines whether to output the predicted protein structures into dedicated PDB files;
+- :code:`rank-outputs-by-confidence` determines whether to rank-order the predicted ligand (and potentially protein) output files, where outputs are ranked using the predicted ligand confidence if available and using the predicted protein confidence otherwise;
 
 
 Expected outputs under :code:`<output_path>`:

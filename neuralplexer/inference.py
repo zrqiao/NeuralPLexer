@@ -164,7 +164,7 @@ def multi_pose_sampling(
     struct_res_all, lig_res_all = [], []
     plddt_all, plddt_lig_all = [], []
     chunk_size = args.chunk_size
-    for chunk_id in range(args.n_samples // chunk_size):
+    for _ in range(args.n_samples // chunk_size):
         # Resample anchor node frames
         np_sample, mol = featurize_protein_and_ligands(
             ligand_path,
@@ -223,12 +223,20 @@ def multi_pose_sampling(
                     plddt_lig_all.append(None)
                 else:
                     plddt_lig_all.append(plddt_lig[struct_idx].item())
+    if confidence and args.rank_outputs_by_confidence:
+        struct_plddts = np.array(plddt_lig_all if all(plddt_lig_all) else plddt_all)  # rank outputs using ligand plDDT if available
+        struct_plddts = np.argsort(-struct_plddts).argsort()  # ensure that higher plDDTs have a higher rank (e.g., `rank1`)
     if save_pdb:
         if separate_pdb:
             for struct_id, struct_res in enumerate(struct_res_all):
-                write_pdb_single(
-                    struct_res, out_path=os.path.join(out_path, f"prot_{struct_id}.pdb")
-                )
+                if confidence and args.rank_outputs_by_confidence:
+                    write_pdb_single(
+                        struct_res, out_path=os.path.join(out_path, f"prot_rank{struct_plddts[struct_id] + 1}.pdb")
+                    )
+                else:
+                    write_pdb_single(
+                        struct_res, out_path=os.path.join(out_path, f"prot_{struct_id}.pdb")
+                    )
         write_pdb_models(
             struct_res_all, out_path=os.path.join(out_path, f"prot_all.pdb")
         )
@@ -241,11 +249,18 @@ def multi_pose_sampling(
             mol, lig_res_all, out_path=os.path.join(out_path, f"lig_all.sdf")
         )
         for struct_id in range(len(lig_res_all)):
-            write_conformer_sdf(
-                mol,
-                lig_res_all[struct_id : struct_id + 1],
-                out_path=os.path.join(out_path, f"lig_{struct_id}.sdf"),
-            )
+            if confidence and args.rank_outputs_by_confidence:
+                write_conformer_sdf(
+                    mol,
+                    lig_res_all[struct_id : struct_id + 1],
+                    out_path=os.path.join(out_path, f"lig_rank{struct_plddts[struct_id] + 1}.sdf"),
+                )
+            else:
+                write_conformer_sdf(
+                    mol,
+                    lig_res_all[struct_id : struct_id + 1],
+                    out_path=os.path.join(out_path, f"lig_{struct_id}.sdf"),
+                )
     else:
         ref_mol = None
     if confidence:
@@ -338,7 +353,7 @@ def pdbbind_benchmarking(args, model):
                 + plddt_lig
             )
         except Exception as e:
-            warnings.warn(f"Sample {sample_id} failed: {e}")
+            warnings.warn(f"Sample {code} failed: {e}")
             continue
         res_df = pd.DataFrame(
             columns=["index", "nrotbonds"]
@@ -591,6 +606,8 @@ def main():
     parser.add_argument("--discard-sdf-coords", action="store_true")
     parser.add_argument("--detect-covalent", action="store_true")
     parser.add_argument("--use-template", action="store_true")
+    parser.add_argument("--separate-pdb", action="store_true")
+    parser.add_argument("--rank-outputs-by-confidence", action="store_true")
     parser.add_argument("--csv-path", type=str)
     args = parser.parse_args()
     config = get_base_config()
@@ -642,7 +659,7 @@ def main():
             model,
             args.out_path,
             template_path=args.input_template,
-            separate_pdb=False,
+            separate_pdb=args.separate_pdb,
         )
     elif args.task == "structure_prediction_benchmarking":
         pl_structure_prediction_benchmarking(args, model)
