@@ -268,7 +268,7 @@ def _resolve_ligand_encoder(ligand_model_config, task_config):
                 for k, v in torch.load(ligand_model_config.checkpoint_file)[
                     "state_dict"
                 ].items()
-                if k.startswith("encoder_stack")
+                if k.startswith("ligand_encoder")
             }
             model.load_state_dict(pretrained_dict)
         except:
