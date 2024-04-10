@@ -18,7 +18,11 @@ Pretrained model checkpoints described in the published manuscript, downstream e
 Installation
 -----
 
-A GPU machine with CUDA>=10.2 support is required to run the model. For a Linux environment, the following commands can be used to install the package:
+A GPU machine with CUDA>=10.2 support is required to run the model. We recommend setting up the 
+[libmambda solver for conda](https://www.anaconda.com/blog/a-faster-conda-for-a-growing-community) 
+before installation.
+
+For a Linux environment, the following commands can be used to install the package:
 
 .. code-block:: bash
 
