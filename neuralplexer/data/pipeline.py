@@ -960,17 +960,17 @@ def write_conformer_sdf(mol, confs: np.array = None, out_path="test_results/debu
     return 0
 
 
-def write_pdb_single(result, out_path="test_results/debug.pdb", model=1):
-    protein = from_prediction(result["features"], result)
+def write_pdb_single(result, out_path="test_results/debug.pdb", model=1, b_factors=None):
+    protein = from_prediction(result["features"], result, b_factors=b_factors)
     out_string = to_pdb(protein, model=model)
     with open(out_path, "w") as of:
         of.write(out_string)
 
 
-def write_pdb_models(results, out_path="test_results/debug.pdb"):
+def write_pdb_models(results, out_path="test_results/debug.pdb", b_factors=None):
     with open(out_path, "w") as of:
         for mid, result in enumerate(results):
-            protein = from_prediction(result["features"], result)
+            protein = from_prediction(result["features"], result, b_factors=b_factors[mid] if b_factors else None)
             out_string = to_pdb(protein, model=mid + 1)
             of.write(out_string)
         of.write("END")
