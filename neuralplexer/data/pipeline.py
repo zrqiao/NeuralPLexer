@@ -970,7 +970,7 @@ def write_pdb_single(result, out_path="test_results/debug.pdb", model=1, b_facto
 def write_pdb_models(results, out_path="test_results/debug.pdb", b_factors=None):
     with open(out_path, "w") as of:
         for mid, result in enumerate(results):
-            protein = from_prediction(result["features"], result, b_factors=b_factors[mid] if b_factors else None)
+            protein = from_prediction(result["features"], result, b_factors=b_factors[mid] if b_factors is not None else None)
             out_string = to_pdb(protein, model=mid + 1)
             of.write(out_string)
         of.write("END")
