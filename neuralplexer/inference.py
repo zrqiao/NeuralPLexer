@@ -162,7 +162,7 @@ def multi_pose_sampling(
     **kwargs,
 ):
     struct_res_all, lig_res_all = [], []
-    plddt_all, plddt_lig_all = [], []
+    plddt_all, plddt_lig_all, res_plddt_all = [], [], []
     chunk_size = args.chunk_size
     for _ in range(args.n_samples // chunk_size):
         # Resample anchor node frames
@@ -197,6 +197,13 @@ def multi_pose_sampling(
             plddt, plddt_lig = model.run_confidence_estimation(
                 sample, output_struct, return_avg_stats=True
             )
+            res_plddt_all.append(
+                sample["outputs"]["plddt"][
+                    struct_idx, : sample["metadata"]["num_a_per_sample"][0]
+                ]
+                .cpu()
+                .numpy()
+            )
 
         for struct_idx in range(args.chunk_size):
             struct_res = {
@@ -225,20 +232,26 @@ def multi_pose_sampling(
                     plddt_lig_all.append(plddt_lig[struct_idx].item())
     if confidence and args.rank_outputs_by_confidence:
         struct_plddts = np.array(plddt_lig_all if all(plddt_lig_all) else plddt_all)  # rank outputs using ligand plDDT if available
-        struct_plddts = np.argsort(-struct_plddts).argsort()  # ensure that higher plDDTs have a higher rank (e.g., `rank1`)
+        struct_plddt_rankings = np.argsort(-struct_plddts).argsort()  # ensure that higher plDDTs have a higher rank (e.g., `rank1`)
     if save_pdb:
+        receptor_plddt = np.array(res_plddt_all) if confidence else None
+        b_factors = np.repeat(
+            receptor_plddt[..., None],
+            struct_res_all[0]["structure_module"]["final_atom_mask"].shape[-1],
+            axis=-1,
+        ) if confidence else None
         if separate_pdb:
             for struct_id, struct_res in enumerate(struct_res_all):
                 if confidence and args.rank_outputs_by_confidence:
                     write_pdb_single(
-                        struct_res, out_path=os.path.join(out_path, f"prot_rank{struct_plddts[struct_id] + 1}.pdb")
+                        struct_res, out_path=os.path.join(out_path, f"prot_rank{struct_plddt_rankings[struct_id] + 1}_plddt{struct_plddts[struct_id]:.4f}.pdb", b_factors=b_factors[struct_id] if confidence else None)
                     )
                 else:
                     write_pdb_single(
-                        struct_res, out_path=os.path.join(out_path, f"prot_{struct_id}.pdb")
+                        struct_res, out_path=os.path.join(out_path, f"prot_{struct_id}.pdb"), b_factors=b_factors[struct_id] if confidence else None
                     )
         write_pdb_models(
-            struct_res_all, out_path=os.path.join(out_path, f"prot_all.pdb")
+            struct_res_all, out_path=os.path.join(out_path, f"prot_all.pdb"), b_factors=b_factors
         )
     if mol is not None:
         write_conformer_sdf(
@@ -253,7 +266,7 @@ def multi_pose_sampling(
                 write_conformer_sdf(
                     mol,
                     lig_res_all[struct_id : struct_id + 1],
-                    out_path=os.path.join(out_path, f"lig_rank{struct_plddts[struct_id] + 1}.sdf"),
+                    out_path=os.path.join(out_path, f"lig_rank{struct_plddt_rankings[struct_id] + 1}_plddt{struct_plddts[struct_id]:.4f}.sdf"),
                 )
             else:
                 write_conformer_sdf(
