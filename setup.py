@@ -38,6 +38,17 @@ setup(
     install_requires=requirements,
     long_description=readme + "\n\n" + history,
     include_package_data=True,
+    package_data={
+        "neuralplexer": [
+            "data/*.csv",
+            "data/*.pdb", 
+            "data/*.json",
+            "data/*.txt",
+            "data/chemical/*.pdb",
+            "data/chemical/*.json",
+            "data/chemical/*.txt",
+        ],
+    },
     keywords="neuralplexer",
     name="neuralplexer",
     packages=find_packages(include=["neuralplexer", "neuralplexer.*"]),
