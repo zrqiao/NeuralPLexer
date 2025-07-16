@@ -218,7 +218,7 @@ DEFAULT_CONFIG = ml_collections.ConfigDict(
 
 def get_standard_aa_features():
     from neuralplexer.af_common.residue_constants import restype_1to3 as af_restype_1to3
-from neuralplexer.af_common.residue_constants import restypes as af_restypes
+    from neuralplexer.af_common.residue_constants import restypes as af_restypes
 
     with open(
         os.path.join(
