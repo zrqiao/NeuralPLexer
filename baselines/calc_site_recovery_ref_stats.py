@@ -8,7 +8,7 @@ import glob
 from rdkit import Chem
 import tqdm
 from neuralplexer.util.pdb3d import get_lddt_bs
-from af_common.protein import Protein, from_prediction, to_pdb
+from neuralplexer.af_common.protein import Protein, from_prediction, to_pdb
 from rdkit.Chem import AllChem
 from rdkit.Geometry import Point3D
 import pandas as pd

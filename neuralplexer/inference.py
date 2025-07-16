@@ -15,7 +15,7 @@ import tqdm
 from rdkit import Chem
 from rdkit.Chem import AllChem
 
-from af_common.residue_constants import restype_1to3
+from neuralplexer.af_common.residue_constants import restype_1to3
 from neuralplexer.data.indexers import collate_numpy
 from neuralplexer.data.physical import calc_heavy_atom_LJ_clash_fraction
 from neuralplexer.data.pipeline import (featurize_protein_and_ligands,

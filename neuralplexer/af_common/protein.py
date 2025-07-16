@@ -17,7 +17,7 @@
 import dataclasses
 import io
 from typing import Any, Mapping, Optional, List, Tuple
-from af_common import residue_constants
+from neuralplexer.af_common import residue_constants
 from Bio.PDB import PDBParser
 import numpy as np
 import warnings
