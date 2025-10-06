@@ -14,9 +14,9 @@ from rdkit import Chem
 from rdkit.Chem import AllChem
 from rdkit.Geometry.rdGeometry import Point3D
 
-from af_common.protein import Protein
-from af_common.protein import from_pdb_string as af_protein_from_pdb_string
-from af_common.protein import from_prediction, to_pdb
+from neuralplexer.af_common.protein import Protein
+from neuralplexer.af_common.protein import from_pdb_string as af_protein_from_pdb_string
+from neuralplexer.af_common.protein import from_prediction, to_pdb
 from neuralplexer.data.indexers import collate_numpy, tensorize_indexers
 from neuralplexer.data.molops import (compute_all_stereo_chemistry_encodings,
                                       compute_bond_pair_triangles,
